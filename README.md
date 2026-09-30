@@ -1,12 +1,12 @@
 # Music Store
 
-ASP.NET Core 2.1 Chinook music catalog: MySQL-backed API plus MVC web UI (Telerik/Kendo grids).
+ASP.NET Core **.NET 10** Chinook music catalog: MySQL-backed API plus MVC web UI (Telerik/Kendo grids).
 
 ## Commands
 
 ### How to run
 
-Prerequisites: .NET / ASP.NET Core **2.1** runtime (or SDK that can build `netcoreapp2.1`), MySQL with `chinookdatabase`, and (for the web UI) the Telerik NuGet feed + trial package.
+Prerequisites: .NET SDK **10**, MySQL with `chinookdatabase`, and (for the web UI) the Telerik NuGet feed + `Telerik.UI.for.AspNet.Core` (authenticated locally).
 
 ```powershell
 # MySQL (example — Docker)
@@ -29,7 +29,7 @@ In Visual Studio, run **MusicStore** (IIS Express → `https://localhost:44333`)
 | `dotnet restore MusicStore\MusicStore.sln` | Restore API solution packages |
 | `dotnet build MusicStore\MusicStore.sln` | Build API + domain + repositories |
 | `dotnet test MusicStore\MusicStore.sln` | Run automated tests |
-| `dotnet run --project MusicStore\MusicStore\MusicStore.csproj` | Start HTTP API (default launch profile URLs) |
+| `dotnet run --project MusicStore\MusicStore\MusicStore.csproj` | Start HTTP API |
 | `dotnet restore MusicStoreWebApp\MusicStoreWebApp.sln` | Restore web UI (needs Telerik package source) |
 | `dotnet build MusicStoreWebApp\MusicStoreWebApp.sln` | Build web UI |
 | `dotnet run --project MusicStoreWebApp\MusicStoreWebApp\MusicStoreWebApp.csproj` | Start MVC UI |
@@ -43,13 +43,14 @@ In Visual Studio, run **MusicStore** (IIS Express → `https://localhost:44333`)
 
 ### Setup notes (details)
 
-- Telerik trial + NuGet source: see `docs/Read This.txt` and [Telerik NuGet install](https://docs.telerik.com/aspnet-core/installation/nuget-install). Feed: `https://nuget.telerik.com/v3/index.json` (username `api-key`).
-- Connection string: `MusicStore/MusicStore/appsettings.json` → `ChinookDatabaseConnection` (default `Server=localhost;User=root;Database=chinookdatabase;`).
+- Telerik: NuGet package `Telerik.UI.for.AspNet.Core` (see `MusicStoreWebApp/NuGet.Config`). Feed: `https://nuget.telerik.com/v3/index.json` (username `api-key`). Client scripts/CSS use the matching Kendo CDN version in `_Layout.cshtml`.
+- Connection string: `MusicStore/MusicStore/appsettings.json` → `ChinookDatabaseConnection`.
 - Architecture: [`docs/architecture/ARD.md`](docs/architecture/ARD.md). Agent standards: [`AGENTS.md`](AGENTS.md), [`docs/engineering-charter.md`](docs/engineering-charter.md).
+- Changes ship via **pull request only** (no direct pushes to `master`).
 
 ## Solutions
 
 | Path | Contents |
 | ---- | -------- |
-| `MusicStore/MusicStore.sln` | API host, Domain, Repository ports, MySQL/MsSql adapters, shared Api client library |
+| `MusicStore/MusicStore.sln` | API host, Domain, Repository ports, MySQL/MsSql adapters, shared Api client library, tests |
 | `MusicStoreWebApp/MusicStoreWebApp.sln` | MVC frontend (references `MusicStore.Api`) |
