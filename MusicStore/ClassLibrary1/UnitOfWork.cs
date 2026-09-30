@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MusicStore.Domain;
 
 namespace MusicStore.Repository.MySql
@@ -30,7 +30,7 @@ namespace MusicStore.Repository.MySql
                 entity.ToTable("albums");
 
                 entity.HasIndex(e => e.ArtistId)
-                    .HasName("IFK_AlbumArtistId");
+                    .HasDatabaseName("IFK_AlbumArtistId");
 
                 entity.Property(e => e.AlbumId).HasColumnType("int(11)");
 
@@ -59,7 +59,7 @@ namespace MusicStore.Repository.MySql
                 entity.ToTable("customers");
 
                 entity.HasIndex(e => e.SupportRepId)
-                    .HasName("IFK_CustomerSupportRepId");
+                    .HasDatabaseName("IFK_CustomerSupportRepId");
 
                 entity.Property(e => e.CustomerId).HasColumnType("int(11)");
 
@@ -101,7 +101,7 @@ namespace MusicStore.Repository.MySql
                 entity.ToTable("employees");
 
                 entity.HasIndex(e => e.ReportsTo)
-                    .HasName("IFK_EmployeeReportsTo");
+                    .HasDatabaseName("IFK_EmployeeReportsTo");
 
                 entity.Property(e => e.EmployeeId).HasColumnType("int(11)");
 
@@ -156,10 +156,10 @@ namespace MusicStore.Repository.MySql
                 entity.ToTable("invoice_items");
 
                 entity.HasIndex(e => e.InvoiceId)
-                    .HasName("IFK_InvoiceLineInvoiceId");
+                    .HasDatabaseName("IFK_InvoiceLineInvoiceId");
 
                 entity.HasIndex(e => e.TrackId)
-                    .HasName("IFK_InvoiceLineTrackId");
+                    .HasDatabaseName("IFK_InvoiceLineTrackId");
 
                 entity.Property(e => e.InvoiceLineId).HasColumnType("int(11)");
 
@@ -179,7 +179,7 @@ namespace MusicStore.Repository.MySql
                 entity.ToTable("invoices");
 
                 entity.HasIndex(e => e.CustomerId)
-                    .HasName("IFK_InvoiceCustomerId");
+                    .HasDatabaseName("IFK_InvoiceCustomerId");
 
                 entity.Property(e => e.InvoiceId).HasColumnType("int(11)");
 
@@ -229,7 +229,7 @@ namespace MusicStore.Repository.MySql
                 entity.ToTable("playlist_track");
 
                 entity.HasIndex(e => e.TrackId)
-                    .HasName("IFK_PlaylistTrackTrackId");
+                    .HasDatabaseName("IFK_PlaylistTrackTrackId");
 
                 entity.Property(e => e.PlaylistId).HasColumnType("int(11)");
 
@@ -243,13 +243,13 @@ namespace MusicStore.Repository.MySql
                 entity.ToTable("tracks");
 
                 entity.HasIndex(e => e.AlbumId)
-                    .HasName("IFK_TrackAlbumId");
+                    .HasDatabaseName("IFK_TrackAlbumId");
 
                 entity.HasIndex(e => e.GenreId)
-                    .HasName("IFK_TrackGenreId");
+                    .HasDatabaseName("IFK_TrackGenreId");
 
                 entity.HasIndex(e => e.MediaTypeId)
-                    .HasName("IFK_TrackMediaTypeId");
+                    .HasDatabaseName("IFK_TrackMediaTypeId");
 
                 entity.Property(e => e.TrackId).HasColumnType("int(11)");
 

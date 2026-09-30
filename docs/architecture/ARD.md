@@ -19,19 +19,19 @@ View diagrams with VS Code / Visual Studio Markdown preview (**Ctrl+Shift+V**). 
 
 ## Proposed Approach
 
-Keep the existing two-process local architecture (API + Web UI) on ASP.NET Core 2.1 with EF Core MySQL. Document real trust boundaries honestly. Add CI that builds the API solution and runs characterization tests. Grow toward charter layers incrementally (extract Application project, purify Domain of EF attributes) behind a green pipeline — no big-bang rewrite.
+Keep the existing two-process local architecture (API + Web UI) on **.NET 10** with Pomelo EF Core MySQL (Pomelo **9.x** until official Pomelo 10 ships). Document real trust boundaries honestly. CI builds the API solution and runs characterization tests on every PR. Grow toward charter layers incrementally (extract Application project, purify Domain of EF attributes) behind a green pipeline — no big-bang rewrite.
 
 ## Individual Components Roles and Responsibilities
 
 | Component | Role |
 | --------- | ---- |
-| `MusicStore` (host) | ASP.NET Core MVC/API presentation + DI composition root + application services |
-| `MusicStore.Domain` | Entity types for Chinook aggregates (`netstandard2.0`; still EF-annotated — debt) |
+| `MusicStore` (host) | ASP.NET Core API presentation + DI composition root + application services (`net10.0`) |
+| `MusicStore.Domain` | Entity types for Chinook aggregates (`net10.0`; still EF-annotated — debt) |
 | `MusicStore.Repository` | Repository port interfaces |
-| `MusicStore.Repository.MySql` (`ClassLibrary1`) | EF `UnitOfWork` + MySQL repository adapters |
+| `MusicStore.Repository.MySql` (`ClassLibrary1`) | EF `UnitOfWork` + MySQL repository adapters (Pomelo 9) |
 | `MusicStore.Repository.MsSql` | Alternate SQL Server adapters (not primary path) |
 | `MusicStore.Api` | HTTP client + DTO/request types used by the web UI (anti-corruption toward the API) |
-| `MusicStoreWebApp` | Razor UI; calls API; Telerik/Kendo presentation |
+| `MusicStoreWebApp` | Razor UI; calls API; Telerik/Kendo presentation (`net10.0`) |
 | MySQL `chinookdatabase` | System of record |
 
 ### Diagrams
@@ -59,10 +59,10 @@ No production deployment topology exists yet.
 
 | Dependency | Purpose |
 | ---------- | ------- |
-| ASP.NET Core 2.1 / EF Core | Host + ORM |
-| Pomelo / MySQL provider (via `UseMySql`) | Persistence |
-| Newtonsoft.Json | API JSON |
-| Telerik.UI.for.AspNet.Core.Trial | Kendo MVC helpers in WebApp |
+| .NET 10 / ASP.NET Core | Host |
+| EF Core 9 + Pomelo.EntityFrameworkCore.MySql 9.0 | Persistence (Pomelo 10 not GA yet; Pomelo 9 runs on net10) |
+| Microsoft.AspNetCore.Mvc.NewtonsoftJson | PascalCase JSON |
+| Telerik.UI.for.AspNet.Core 2026.3.x | Kendo MVC helpers in WebApp |
 | MySQL Server 8 | Database |
 | Docker (optional) | Local MySQL |
 
@@ -101,14 +101,14 @@ See sequence diagram above for the employee list flow. Runnable commands: [READM
 ### Transport
 
 - Dev HTTPS via IIS Express / Kestrel certificates.
-- API uses permanent HTTP→HTTPS rewrite in Development/host pipeline.
-- Certificate trust is a local-dev concern (browser / `HttpClient` may need to trust the IIS Express or ASP.NET HTTPS cert).
+- API uses `UseHttpsRedirection`.
+- Certificate trust is a local-dev concern (browser / `HttpClient` may need to trust the ASP.NET HTTPS cert).
 
 ### Top risks for this surface
 
 1. **Unauthenticated write API** — anyone who can reach the API can mutate Chinook data.
 2. **Connection string / NuGet credentials leakage** if copied into source or screenshots.
-3. **EOL runtime (ASP.NET Core 2.1)** — known CVEs; acceptable only for isolated thesis/local use until upgrade.
+3. **Telerik trial expiry** — WebApp build/licensing depends on an active Telerik trial/license.
 4. **Client ignores TLS errors** if developers disable validation to call localhost HTTPS — increases MITM risk off-localhost.
 
 ### Threat view (list employees)

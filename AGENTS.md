@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Music Store is an ASP.NET Core 2.1 Chinook catalog: **MusicStore** (HTTP API + MySQL) and **MusicStoreWebApp** (MVC UI calling that API).
+Music Store is an ASP.NET Core **.NET 10** Chinook catalog: **MusicStore** (HTTP API + MySQL) and **MusicStoreWebApp** (MVC UI calling that API).
 
 ## Standards
 
@@ -20,7 +20,7 @@ Follow [`docs/engineering-charter.md`](docs/engineering-charter.md) for architec
 | Domain | `MusicStore/MusicStore.Domain` (EF attributes still leak — migrate carefully) |
 | Application / use cases | `MusicStore/MusicStore/Services` (same host as presentation — debt) |
 | Infrastructure | `MusicStore/ClassLibrary1` (MySQL), optional MsSql project |
-| Presentation | `MusicStore/MusicStore` (API), `MusicStoreWebApp/` (UI) |
+| Presentation | `MusicStore/MusicStore` (API, net10), `MusicStoreWebApp/` (UI, net10) |
 | Client ACL | `MusicStore/MusicStore.Api` (HTTP client DTOs used by the web app) |
 
 ## Do / don't
