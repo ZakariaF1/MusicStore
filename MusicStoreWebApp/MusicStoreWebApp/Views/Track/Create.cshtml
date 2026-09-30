@@ -1,0 +1,66 @@
+﻿@using MusicStore.Api.Requests.CreateRequests
+@model TrackCreateRequest
+@{
+    ViewBag.Title = "Create Track";
+}
+
+@section StyleSheets
+    {
+    <link href="~/css/form.css" rel="stylesheet" />
+}
+
+<div class="form-container">
+    <div class="form-header">
+        <p class="header-paragraph">Create Track</p>
+    </div>
+    <form id="main-form" class="form-content" method="post" autocomplete="off">
+        <div class="form-group">
+            <label for="Name">Name<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(p => p.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Name)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.AlbumId, "Album")
+            @Html.TextBoxFor(p => p.AlbumId, new { @id = "albumId-input", @style = "width: 100%" })
+        </div>
+        <div class="form-group">
+            <label for="MediaTypeId">Media Type<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(p => p.MediaTypeId, new { @id = "mediaTypeId-input", @style = "width: 100%" })
+            <span class="field-validation-error mediaTypeId-validation-error"></span>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.GenreId, "Genre")
+            @Html.TextBoxFor(p => p.GenreId, new { @id = "genreId-input", @style = "width: 100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.Composer)
+            @Html.TextBoxFor(model => model.Composer, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Composer)
+        </div>
+        <div class="form-group">
+            <label for="Milliseconds">Milliseconds<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(model => model.Milliseconds, new { @class = "form-control", @type = "number", min = "1", step = "1", onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })
+            @Html.ValidationMessageFor(p => p.Milliseconds)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.Bytes)
+            @Html.TextBoxFor(p => p.Bytes, new { @class = "form-control", @type = "number", min = "1", step = "1", onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })
+            @Html.ValidationMessageFor(p => p.Bytes)
+        </div>
+        <div class="form-group">
+            <label for="UnitPrice">Unit Price<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(p => p.UnitPrice, new { @class = "form-control", @type = "number", min="0.1", max="100", step="0.01"})
+            @Html.ValidationMessageFor(p => p.UnitPrice)
+        </div>
+    </form>
+    <hr class="break-line" />
+    <div class="form-footer">
+        <a class="btn btn-danger form-button form-cancelButton" asp-action="Index" role="button">Cancel</a>
+        <button type="submit" class="btn btn-danger form-button form-submitButton" form="main-form">Create</button>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/trackForm.js"></script>
+}

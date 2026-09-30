@@ -1,0 +1,75 @@
+﻿@using MusicStoreWebApp.Models.ViewModels;
+@using MusicStoreWebApp.ExtensionMethods
+@model IEnumerable<InvoiceViewModel>
+@{
+    ViewBag.Title = "Available Invoices";
+}
+
+@section StyleSheets
+    {
+    <link href="~/css/index.css" rel="stylesheet" />
+    <link href="~/css/sideBar.css" rel="stylesheet" />
+    <link href="~/css/myModal.css" rel="stylesheet" />
+}
+
+@await Html.PartialAsync("SideBarView")
+
+<div class="rightSide-content">
+    <div class="functionalities-container">
+        @Html.TextBox("search-text-box", null, new { @type = "search", @class = "form-control search-text-box", placeholder = "Search", autocomplete = "off" })
+        <select class="filter-select" multiple="multiple">
+            <option value="invoiceId">Invoice Id</option>
+            <option value="customerName">Customer Name</option>
+            <option value="invoiceDate">Invoice Date</option>
+            <option value="billingAddress">Billing Address</option>
+            <option value="billingCity">Billing City</option>
+            <option value="billingCountry">Billing Country</option>
+            <option value="total">Total</option>
+        </select>
+        <div class="btn-group main-select">
+            @Html.ActionLink("Create Invoice", "Create", null, null, new { @class = "btn btn-danger create-button" })
+            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split create-button-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+            <div class="dropdown-menu" k, style="top: 20px;">
+                <button class="dropdown-item index-delete-button" disabled>Delete Invoice</button>
+            </div>
+        </div>
+    </div>
+
+    @(Html.Kendo().Grid<InvoiceViewModel>()
+                        .Name("grid")
+                        .HtmlAttributes(new { style = "height: 560px" })
+                        .Columns(columns =>
+                        {
+                            columns.Bound(c => c.InvoiceId).Width(130).ClientTemplate(Html.ActionLink("#=InvoiceId#", "Edit", new { customerId = "#=CustomerId#", invoiceId = "#=InvoiceId#", fromCustomer = false }).ToHtmlString());
+                            columns.Bound(invoice => invoice.CustomerName).ClientTemplate(Html.ActionLink("#=CustomerName#", "Details", "Customer", new { customerId = "#=CustomerId#" }).ToHtmlString());
+                            columns.Bound(invoice => invoice.InvoiceDate).Width(150).ClientTemplate("#= kendo.toString(InvoiceDate, \"dd/MM/yyyy hh:mm tt\") #");
+                            columns.Bound(invoice => invoice.BillingAddress).Width(170);
+                            columns.Bound(invoice => invoice.BillingCity).Width(150);
+                            columns.Bound(invoice => invoice.BillingCountry);
+                            columns.Bound(invoice => invoice.Total).Width(100);
+                            columns.Select().Width(70);
+                        })
+                        .Sortable(sortable => sortable
+                            .AllowUnsort(true)
+                            .SortMode(GridSortMode.MultipleColumn)
+                            .ShowIndexes(true))
+                        .Scrollable()
+                        .Pageable(pageable => pageable
+                            .Refresh(true)
+                            .PageSizes(true)
+                            .ButtonCount(5))
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(10)
+                            .Model(model => model.Id(p => p.InvoiceId))
+                            .Read(read => read.Action("GridListInvoices", "Invoice"))
+                        )
+    )
+    <div class="delete-plugin-container"></div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/invoiceIndex.js" defer></script>
+    <script src="~/js/DeleteModal.js" defer></script>
+}

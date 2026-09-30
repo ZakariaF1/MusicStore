@@ -1,0 +1,88 @@
+﻿@using MusicStore.Api.Requests
+@using MusicStore.Api.Requests.CreateRequests
+@model CustomerCreateRequest
+@{
+    ViewBag.Title = "Create Customer";
+}
+
+@section StyleSheets
+    {
+    <link href="~/css/form.css" rel="stylesheet" />
+}
+
+<div class="form-container">
+    <div class="form-header">
+        <p class="header-paragraph">Create Customer</p>
+    </div>
+    <form id="main-form" class="form-content" method="post" autocomplete="off">
+        <div class="form-group">
+            <label for="FirstName">First Name<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(p => p.FirstName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.FirstName)
+        </div>
+        <div class="form-group">
+            <label for="LastName">Last Name<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(p => p.LastName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.LastName)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.Company)
+            @Html.TextBoxFor(p => p.Company, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Company)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.Address)
+            @Html.TextBoxFor(p => p.Address, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Address)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.Country)
+            @Html.TextBoxFor(p => p.Country, new { @id = "countries", @style = "width: 100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.City)
+            @Html.TextBoxFor(p => p.City, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.City)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.State)
+            @Html.TextBoxFor(p => p.State, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.State)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.PostalCode, "Postal Code")
+            @Html.TextBoxFor(p => p.PostalCode, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.PostalCode)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.Phone)
+            @Html.TextBoxFor(p => p.Phone, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Phone)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.Fax)
+            @Html.TextBoxFor(p => p.Fax, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Fax)
+        </div>
+
+        <div class="form-group">
+            <label for="Email">Email<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Email)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.SupportRepId, "Support Representant")
+            @Html.TextBoxFor(p => p.SupportRepId, new { @id = "supportRep-input", @style = "width: 100%" })
+        </div>
+    </form>
+    <hr class="break-line" />
+    <div class="form-footer">
+        <a class="btn btn-danger form-button form-cancelButton" asp-action="Index" role="button">Cancel</a>
+        <button type="submit" class="btn btn-danger form-button form-submitButton" form="main-form">Create</button>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/customerForm.js"></script>
+}

@@ -1,0 +1,70 @@
+﻿@using MusicStore.Api.Responses
+@model TrackFrontendUpdateResponse
+@{
+    ViewBag.Title = "Update Track";
+}
+
+@section StyleSheets
+    {
+    <link href="~/css/form.css" rel="stylesheet" />
+}
+
+<div class="form-container">
+    <div class="form-header">
+        <p class="header-paragraph">Edit Track No. @Model.TrackResponse.TrackId</p>
+    </div>
+    <form id="main-form" class="form-content" method="post" autocomplete="off">
+        <div class="form-group">
+            @Html.LabelFor(p => p.TrackResponse.TrackId, "Track Id")
+            @Html.TextBoxFor(p => p.TrackResponse.TrackId, new { @class = "form-control", disabled = "disabled" })
+        </div>
+        <div class="form-group">
+            <label for="Name">Name<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(p => p.TrackUpdateRequest.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.TrackUpdateRequest.Name)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.TrackUpdateRequest.AlbumId, "Album")
+            @Html.TextBoxFor(p => p.TrackUpdateRequest.AlbumId, new { @id = "albumId-input", @style = "width: 100%" })
+        </div>
+        <div class="form-group">
+            <label for="MediaTypeId">Media Type<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(p => p.TrackUpdateRequest.MediaTypeId, new { @id = "mediaTypeId-input", @style = "width: 100%" })
+            <span class="field-validation-error mediaTypeId-validation-error"></span>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.TrackUpdateRequest.GenreId, "Genre")
+            @Html.TextBoxFor(p => p.TrackUpdateRequest.GenreId, new { @id = "genreId-input", @style = "width: 100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.TrackUpdateRequest.Composer)
+            @Html.TextBoxFor(model => model.TrackUpdateRequest.Composer, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.TrackUpdateRequest.Composer)
+        </div>
+        <div class="form-group">
+            <label for="Milliseconds">Milliseconds<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(model => model.TrackUpdateRequest.Milliseconds, new { @class = "form-control", @type = "number", min = "1", step = "1", onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })
+            @Html.ValidationMessageFor(p => p.TrackUpdateRequest.Milliseconds)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.TrackUpdateRequest.Bytes)
+            @Html.TextBoxFor(p => p.TrackUpdateRequest.Bytes, new { @class = "form-control", @type = "number", min = "1", step = "1", onkeypress = "return event.charCode >= 48 && event.charCode <= 57" })
+            @Html.ValidationMessageFor(p => p.TrackUpdateRequest.Bytes)
+        </div>
+        <div class="form-group">
+            <label for="UnitPrice">Unit Price<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(p => p.TrackUpdateRequest.UnitPrice, new { @class = "form-control", @type = "number", min = "0.1", step = "0.01", onkeypress = "return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46" })
+            @Html.ValidationMessageFor(p => p.TrackUpdateRequest.UnitPrice)
+        </div>
+    </form>
+    <hr class="break-line" />
+    <div class="form-footer">
+        @Html.ActionLink("Cancel", "Details", null, new { trackId = Model.TrackResponse.TrackId }, new { @class = "btn btn-danger form-button form-cancelButton" })
+        <button type="submit" class="btn btn-danger form-button form-submitButton" form="main-form">Save</button>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/trackForm.js"></script>
+}

@@ -1,0 +1,92 @@
+﻿@using MusicStore.Api.Responses
+@using MusicStore.Api.Requests
+@model CustomerFrontendUpdateResponse
+@{
+    ViewBag.Title = "Update Customer";
+}
+
+@section StyleSheets
+    {
+    <link href="~/css/form.css" rel="stylesheet" />
+}
+
+<div class="form-container">
+    <div class="form-header">
+        <p class="header-paragraph">Edit Customer @Model.CustomerResponse.FullName</p>
+    </div>
+    <form id="main-form" class="form-content" method="post" autocomplete="off">
+        <div class="form-group">
+            @Html.LabelFor(p => p.CustomerResponse.CustomerId, "Customer Id")
+            @Html.TextBoxFor(p => p.CustomerResponse.CustomerId, new { @class = "form-control", disabled = "disabled" })
+        </div>
+        <div class="form-group">
+            <label for="FirstName">First Name<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(p => p.CustomerUpdateRequest.FirstName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.CustomerUpdateRequest.FirstName)
+        </div>
+        <div class="form-group">
+            <label for="LastName">Last Name<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(p => p.CustomerUpdateRequest.LastName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.CustomerUpdateRequest.LastName)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.CustomerUpdateRequest.Company)
+            @Html.TextBoxFor(p => p.CustomerUpdateRequest.Company, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.CustomerUpdateRequest.Company)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.CustomerUpdateRequest.Address)
+            @Html.TextBoxFor(p => p.CustomerUpdateRequest.Address, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.CustomerUpdateRequest.Address)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.CustomerUpdateRequest.Country)
+            @Html.TextBoxFor(p => p.CustomerUpdateRequest.Country, new { @id = "countries", @style = "width: 100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.CustomerUpdateRequest.City)
+            @Html.TextBoxFor(p => p.CustomerUpdateRequest.City, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.CustomerUpdateRequest.City)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.CustomerUpdateRequest.State)
+            @Html.TextBoxFor(p => p.CustomerUpdateRequest.State, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.CustomerUpdateRequest.State)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.CustomerUpdateRequest.PostalCode, "Postal Code")
+            @Html.TextBoxFor(p => p.CustomerUpdateRequest.PostalCode, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.CustomerUpdateRequest.PostalCode)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.CustomerUpdateRequest.Phone)
+            @Html.TextBoxFor(p => p.CustomerUpdateRequest.Phone, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.CustomerUpdateRequest.Phone)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.CustomerUpdateRequest.Fax)
+            @Html.TextBoxFor(p => p.CustomerUpdateRequest.Fax, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.CustomerUpdateRequest.Fax)
+        </div>
+
+        <div class="form-group">
+            <label for="Email">Email<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(m => m.CustomerUpdateRequest.Email, new { @type = "email", @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.CustomerUpdateRequest.Email)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.CustomerUpdateRequest.SupportRepId, "Support Representant")
+            @Html.TextBoxFor(p => p.CustomerUpdateRequest.SupportRepId, new { @id = "supportRep-input", @style = "width: 100%" })
+        </div>
+    </form>
+    <hr class="break-line" />
+    <div class="form-footer">
+        @Html.ActionLink("Cancel", "Details", null, new { customerId = Model.CustomerResponse.CustomerId }, new { @class = "btn btn-danger form-button form-cancelButton" })
+        <button type="submit" class="btn btn-danger form-button form-submitButton" form="main-form">Save</button>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/customerForm.js"></script>
+}

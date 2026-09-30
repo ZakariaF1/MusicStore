@@ -1,0 +1,19 @@
+Prequisites:
+
+1- Install telerik as there is a nuget package reference:
+	https://www.telerik.com/download-trial-file/v2/aspnet-core-ui 
+
+2- if (1) didn't work check also this:
+	https://docs.telerik.com/aspnet-mvc/getting-started/installation/nuget-install#set-up-nuget-package-source
+
+3: Workbench installlation: (for mysql database)
+	https://dev.mysql.com/doc/workbench/en/wb-installing-windows.html
+
+4- Xampp installation: (make a connection with mysql) NOT REQUIRED
+	https://www.apachefriends.org/download.html
+
+References:
+http://www.sqlitetutorial.net/sqlite-sample-database/
+
+
+ENJOY :)

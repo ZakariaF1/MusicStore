@@ -1,0 +1,119 @@
+﻿.rightSide-content {
+    float: right;
+    width: 82%;
+    padding: 35px;
+}
+
+.functionalities-container {
+    position: relative;
+    min-height: 38px;
+    margin-bottom: 24px;
+}
+
+.search-text-box {
+    float: left;
+    width: 25%;
+    border-radius: 0px;
+    margin-right: 20px;
+}
+
+.search-text-box:focus {
+    border: red solid 1px;
+    box-shadow: 0 0 10px #8a0000;
+}
+
+.main-select {
+    float: right;
+}
+
+.create-button,
+.multiselect {
+    background-color: rgba(190, 16, 16, 0.7);
+    border-color: rgba(190, 16, 16, 0.7);
+    border-radius: 0;
+}
+
+.create-button:hover,
+.multiselect:hover {
+    background-color: rgba(190, 16, 16, 1);
+    border-color: rgba(190, 16, 16, 0.7);
+}
+
+.multiselect span, .multiselect:after {
+    color: white;
+}
+
+.multiselect-container > li > a > label {
+    color: rgba(190, 16, 16, 0.8);
+    padding: 4px 20px 5px 12px;
+    /*padding: 4px 20px 3px 20px;*/
+}
+
+.multiselect-container > li > a > label:hover {
+    color: rgba(190, 16, 16, 1);
+}
+
+.main-select .dropdown-toggle {
+    background-color: rgba(190, 16, 16, 0.7);
+    border-color: rgba(190, 16, 16, 0.7);
+    border-radius: 0;
+}
+
+.main-select .dropdown-toggle:hover {
+    background-color: rgba(190, 16, 16, 1);
+    border-color: rgba(190, 16, 16, 0.7);
+}
+
+.dropdown-menu {
+    border-radius: 0;
+}
+
+.main-select .dropdown-menu.show {
+    top: -2px !important;
+    left: -29px !important;
+    width: 0;
+}
+
+.index-delete-button {
+    padding: 0px 12px;
+    width: 171px;
+    color: rgba(190, 16, 16, 0.8);
+}
+
+.index-delete-button:enabled:hover,
+.index-delete-button:enabled:active {
+    color: rgba(190, 16, 16, 1) !important;
+    background-color: white !important;
+}
+
+.index-delete-button:enabled hover {
+    color: #BE1010;
+}
+
+table tbody tr td a {
+    text-decoration: none !important;
+    color: #BE1010;
+}
+
+table tbody tr td a:hover {
+    color: #BE1010;
+}
+
+.k-grid-header tr th {
+    padding: 7px 15px 7px 15px !important;
+    vertical-align: middle !important;
+}
+
+.k-checkbox-label:before {
+    top: 4px;
+    left: 10px;
+}
+
+.k-grid tr td {
+    padding: 7px 15px;
+    border-left-width: 1px;
+}
+
+.k-grid-content tr:last-child td {
+    border-bottom-width: 1px;
+}

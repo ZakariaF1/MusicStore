@@ -1,0 +1,103 @@
+﻿.web-container {
+    display: inherit !important;
+}
+
+.form-container {
+    background-color: #fefefe;
+    margin: 2% auto;
+    border: 1px solid rgba(136, 136, 136, 0.5);
+    width: 50%;
+}
+
+.form-header {
+    padding: 30px;
+    background-color: #EEEEEE;
+    border-bottom: 1px solid rgba(136, 136, 136, 0.5);
+}
+
+.form-header > .header-paragraph {
+    font-weight: bold;
+    color: #BE1010;
+    margin: 0;
+}
+
+.form-container > .form-content {
+    padding: 30px;
+}
+
+.form-container > .break-line {
+    margin: 0 30px;
+}
+
+.form-footer {
+    padding: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.form-footer > .form-button {
+    padding: 1% 6%;
+    border-radius: 0.25rem;
+}
+
+.form-footer > .form-submitButton {
+    margin-left: 10px;
+    background-color: #BE1010;
+    border-color: #BE1010;
+}
+
+.form-footer > .form-cancelButton,
+.form-footer > .form-cancelButton:hover
+.form-footer > .form-cancelButton:active {
+    background-color: white !important;
+    border-color: white !important;
+    color: gray !important;
+}
+
+.input-validation-error {
+    border-color: red;
+}
+
+.field-validation-error {
+    color: red;
+}
+
+.dateTime {
+    position: relative;
+    padding: 10px;
+}
+
+.dateTime:after {
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    content: '\f073';
+    font-weight: 900;
+    color: #BE1010;
+    top: 7px;
+    right: 16px;
+}
+
+.dateTime::-webkit-calendar-picker-indicator {
+    color: transparent;
+    background: none;
+    z-index: 1;
+}
+
+.dateTime::-webkit-inner-spin-button,
+.dateTime::-webkit-outer-spin-button,
+.dateTime::-webkit-clear-button {
+    -webkit-appearance: none;
+}
+
+/*.select-picker::-webkit-calendar-picker-indicator {
+    opacity: 100;
+    color: #BE1010;
+}*/
+
+.required-superscript {
+    color: #8a0000;
+}
+
+.k-i-arrow-60-down:before {
+    color: #8a0000;
+}

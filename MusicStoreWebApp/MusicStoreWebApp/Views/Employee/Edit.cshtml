@@ -1,0 +1,110 @@
+﻿@using MusicStore.Api.Requests
+@using MusicStore.Api.Responses
+
+@model EmployeeFrontendUpdateResponse
+@{
+    ViewBag.Title = "Update Employee";
+}
+
+@section StyleSheets
+    {
+    <link href="~/css/form.css" rel="stylesheet" />
+}
+
+<div class="form-container">
+    <div class="form-header">
+        <p class="header-paragraph">Edit Employee @Model.EmployeeResponse.FullName</p>
+    </div>
+    <form id="main-form" class="form-content" method="post" autocomplete="off">
+        <div class="form-group">
+            @Html.LabelFor(p => p.EmployeeResponse.EmployeeId, "Employee Id")
+            @Html.TextBoxFor(p => p.EmployeeResponse.EmployeeId, new { @class = "form-control", disabled = "disabled" })
+        </div>
+        <div class="form-group">
+            <label for="FirstName">First Name<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(p => p.EmployeeUpdateRequest.FirstName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.EmployeeUpdateRequest.FirstName)
+        </div>
+        <div class="form-group">
+            <label for="LastName">Last Name<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(p => p.EmployeeUpdateRequest.LastName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.EmployeeUpdateRequest.LastName)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.EmployeeResponse.Title)
+            @Html.TextBoxFor(p => p.EmployeeUpdateRequest.Title, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.EmployeeUpdateRequest.Title)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.EmployeeResponse.ReportsTo, "Reports To")
+            @Html.TextBoxFor(p => p.EmployeeUpdateRequest.ReportsTo, new { @id = "reportsTo-input", @style = "width: 100%" })
+            <span class="field-validation-error reportsTo-validation-error"></span>
+        </div>
+        <div class="form-group">
+            <label for="BirthDate">Birth Date<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(model => model.EmployeeUpdateRequest.BirthDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control dateTime birthDate-input" })
+            @Html.ValidationMessageFor(p => p.EmployeeUpdateRequest.BirthDate)
+        </div>
+        <div class="form-group">
+            <label for="HireDate">Hire Date<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(model => model.EmployeeUpdateRequest.HireDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control dateTime hireDate-input", disabled = "true" })
+            @Html.ValidationMessageFor(p => p.EmployeeUpdateRequest.HireDate)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.EmployeeResponse.Address)
+            @Html.TextBoxFor(p => p.EmployeeUpdateRequest.Address, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.EmployeeUpdateRequest.Address)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.EmployeeResponse.Country)
+            @Html.TextBoxFor(p => p.EmployeeUpdateRequest.Country, new { @id = "countries", @style = "width: 100%" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.EmployeeResponse.City)
+            @Html.TextBoxFor(p => p.EmployeeUpdateRequest.City, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.EmployeeUpdateRequest.City)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.EmployeeResponse.State)
+            @Html.TextBoxFor(p => p.EmployeeUpdateRequest.State, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.EmployeeUpdateRequest.State)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.EmployeeResponse.PostalCode, "Postal Code")
+            @Html.TextBoxFor(p => p.EmployeeUpdateRequest.PostalCode, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.EmployeeUpdateRequest.PostalCode)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.EmployeeResponse.Phone)
+            @Html.TextBoxFor(p => p.EmployeeUpdateRequest.Phone, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.EmployeeUpdateRequest.Phone)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.EmployeeResponse.Fax)
+            @Html.TextBoxFor(p => p.EmployeeUpdateRequest.Fax, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.EmployeeUpdateRequest.Fax)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(p => p.EmployeeResponse.Email)
+            @Html.TextBoxFor(m => m.EmployeeUpdateRequest.Email, new { @class = "form-control", @name = "lol" })
+            @Html.ValidationMessageFor(p => p.EmployeeUpdateRequest.Email)
+        </div>
+    </form>
+    <hr class="break-line" />
+    <div class="form-footer">
+        @Html.ActionLink("Cancel", "Details", null, new { employeeId = Model.EmployeeResponse.EmployeeId }, new { @class = "btn btn-danger form-button form-cancelButton" })
+        <button type="submit" class="btn btn-danger form-button form-submitButton" form="main-form">Save</button>
+    </div>
+</div>
+
+<script id="template" type="text/x-kendo-template">
+    <span class="#: isNotAvailable ? 'k-state-disabled': ''#">
+        #: text #
+    </span>
+</script>
+
+@section Scripts
+    {
+    <script src="~/js/employeeForm.js"></script>
+}

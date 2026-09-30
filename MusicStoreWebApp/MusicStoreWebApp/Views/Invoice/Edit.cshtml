@@ -1,0 +1,170 @@
+﻿@using MusicStoreWebApp.Models.ViewModels
+@using MusicStore.Api.Responses
+@using MusicStoreWebApp.ExtensionMethods
+@model InvoiceFrontendUpdateResponse
+@{
+    ViewBag.Title = "Update Invoice";
+}
+
+@section StyleSheets
+    {
+    <link href="~/css/form.css" rel="stylesheet" />
+    <link href="~/css/index.css" rel="stylesheet" />
+    <link href="~/css/advancedForm.css" rel="stylesheet" />
+    <link href="~/css/myModal.css" rel="stylesheet" />
+    <link href="~/css/trackModal.css" rel="stylesheet" />
+}
+
+@Html.ValidationSummary(true)
+<div class="invoice-editor-container">
+    <div class="form-container">
+        <div class="form-header">
+            <p class="header-paragraph">Edit Invoice for @Model.CustomerResponse.FullName</p>
+        </div>
+        <form id="main-form" class="form-content" autocomplete="off">
+            <div class="form-group">
+                @Html.LabelFor(p => p.InvoiceResponse.Customer.CustomerId, "Customer Id")
+                @Html.TextBoxFor(p => p.InvoiceResponse.Customer.CustomerId, new { @class = "form-control invoice-CustomerId", disabled = "disabled" })
+                <span class="field-validation-error customerId-validation-error"></span>
+            </div>
+            <div class="form-group">
+                <label for="InvoiceDate">Invoice Date<sup class="required-superscript">*</sup></label>
+                @Html.TextBoxFor(p => p.InvoiceUpdateRequest.InvoiceDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control dateTime invoice-invoiceDate" })
+                @Html.ValidationMessageFor(p => p.InvoiceUpdateRequest.InvoiceDate)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => p.InvoiceUpdateRequest.BillingAddress, "Billing Address")
+                @Html.TextBoxFor(p => p.InvoiceUpdateRequest.BillingAddress, new { @class = "form-control invoice-billingAddress" })
+                @Html.ValidationMessageFor(p => p.InvoiceUpdateRequest.BillingAddress)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => p.InvoiceUpdateRequest.BillingCity, "Billing City")
+                @Html.TextBoxFor(p => p.InvoiceUpdateRequest.BillingCity, new { @class = "form-control invoice-billingCity" })
+                @Html.ValidationMessageFor(p => p.InvoiceUpdateRequest.BillingCity)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => p.InvoiceUpdateRequest.BillingState, "Billing State")
+                @Html.TextBoxFor(p => p.InvoiceUpdateRequest.BillingState, new { @class = "form-control invoice-billingState" })
+                @Html.ValidationMessageFor(p => p.InvoiceUpdateRequest.BillingState)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => p.InvoiceUpdateRequest.BillingCountry, "Billing Country")
+                @Html.TextBoxFor(p => p.InvoiceUpdateRequest.BillingCountry, new { @id = "countries", @style = "width: 100%" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => p.InvoiceUpdateRequest.BillingPostalCode, "Billing Postal Code")
+                @Html.TextBoxFor(p => p.InvoiceUpdateRequest.BillingPostalCode, new { @class = "form-control invoice-billingPostalCode" })
+                @Html.ValidationMessageFor(p => p.InvoiceUpdateRequest.BillingPostalCode)
+            </div>
+            <div class="form-group">
+                @Html.Label("total-price", "Total")
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    @Html.TextBoxFor(p => p.InvoiceResponse.Total, new { @type = "decimal", @class = "form-control total-price", disabled = "disabled" })
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="index-container">
+        <div class="index-header form-header">
+            <p class="header-paragraph">Add Tracks to Invoice No. @Model.InvoiceResponse.InvoiceId for @Model.CustomerResponse.FullName</p>
+        </div>
+        <div class="content-container">
+            <div class="functionalities-container">
+                @Html.TextBox("search-text-box", null, new { @type = "search", @class = "form-control search-text-box", placeholder = "Search", autocomplete = "off" })
+                <select class="filter-select" multiple="multiple">
+                    <option value="invoiceLineId">Invoice Line Id</option>
+                    <option value="trackId">Track Id</option>
+                    <option value="trackName">Track Name</option>
+                    <option value="unitPrice">Unit Price</option>
+                    <option value="quantity">Quantity</option>
+                </select>
+                <div class="btn-group main-select">
+                    <button class="btn btn-danger create-button">Add Track</button>
+                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split create-button-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                    <div class="dropdown-menu" k, style="top: 20px;">
+                        <button class="dropdown-item index-delete-button" disabled>Remove Track</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="grid"></div>
+        </div>
+    </div>
+</div>
+<div class="form-footer">
+    <a class="btn btn-danger form-button form-cancelButton" role="button">Cancel</a>
+    <button type="submit" class="btn btn-danger form-button form-submitButton" form="main-form" disabled>Save</button>
+</div>
+<div class="myModal-wrapper track-modal-wrapper">
+    <div class="myModal track-modal">
+        <div class="myModal-header trackModal-header">
+            <div class="myModal-header-paragraph trackModal-header-paragraph">Add Track to New Invoice</div>
+        </div>
+        <div class="content-footer-container">
+            <div class="myModal-content trackModal-content">
+                <div class="myModal-content-paragraph trackModal-content-paragraph">
+                    <form id="secondary-form" class="invoiceItem-form-content">
+                        <div class="form-group first-form-group">
+                            <label>Select Your Track<sup class="required-superscript">*</sup></label>
+                            @Html.TextBox("track-input", null, new { @style = "width: 100%" })
+                        </div>
+                        <div class="form-group">
+                            <label>Unit Price</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input class="form-control unit-price-textBox" name="unit-price" type="number" data-val="true" min="0.1" max="10" step="0.01" />
+                                <span data-valmsg-for="unit-price" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Quantity<sup class="required-superscript">*</sup></label>
+                            <input class="form-control quantity-textBox" name="quantity" type="number" data-val="true" min="1" max="10" step="1" required />
+                            <span data-valmsg-for="quantity" data-valmsg-replace="true"></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr class="break-line">
+            <div class="myModal-footer trackModal-footer">
+                <button class="btn btn-danger myModal-button myModal-secondaryButton trackModal-secondaryButton">Cancel</button>
+                <button class="btn btn-danger myModal-button myModal-mainButton trackModal-mainButton" form="secondary-form" disabled>Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="myModal-wrapper remove-modal-wrapper">
+    <div class="myModal remove-modal">
+        <div class="myModal-header removeModal-header">
+            <div class="myModal-header-paragraph removeModal-header-paragraph">
+                Delete Invoices with Id 1
+            </div>
+        </div>
+        <div class="content-footer-container">
+            <div class="myModal-content removeModal-content">
+                <div class="myModal-content-paragraph removeModal-content-paragraph">WARNING: Invoices with Id 1 will be deleted. There is no way to recover the invoices after deletion</div>
+            </div>
+            <hr class="break-line">
+            <div class="myModal-footer removeModal-footer">
+                <button class="btn btn-danger myModal-button myModal-secondaryButton removeModal-secondaryButton">Cancel</button>
+                <button class="btn btn-danger myModal-button myModal-mainButton removeModal-mainButton">Remove</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="error-message-container">
+    <div>
+        <i class="fas fa-times"></i>
+        <span class="error-message-title">Error</span>
+        <span class="error-message-paragraph">You cannot add more than 10 items with the same id on an invoice</span>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/invoiceUpdate.js"></script>
+}

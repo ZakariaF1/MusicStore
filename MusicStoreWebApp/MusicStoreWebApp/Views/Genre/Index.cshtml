@@ -1,0 +1,65 @@
+﻿@using MusicStoreWebApp.Models.ViewModels
+@using MusicStoreWebApp.ExtensionMethods
+@model IEnumerable<GenreViewModel>
+@{
+    ViewBag.Title = "Available Genres";
+}
+
+@section StyleSheets
+    {
+    <link href="~/css/index.css" rel="stylesheet" />
+    <link href="~/css/sideBar.css" rel="stylesheet" />
+    <link href="~/css/myModal.css" rel="stylesheet" />
+}
+
+@await Html.PartialAsync("SideBarView")
+
+<div class="rightSide-content">
+    <div class="functionalities-container">
+        @Html.TextBox("search-text-box", null, new { @type = "search", @class = "form-control search-text-box", placeholder = "Search", autocomplete = "off" })
+        <select class="filter-select" multiple="multiple">
+            <option value="genreId">Genre Id</option>
+            <option value="name">Name</option>
+        </select>
+        <div class="btn-group main-select">
+            @Html.ActionLink("Create Genre", "Create", null, null, new { @class = "btn btn-danger create-button" })
+            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split create-button-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+            <div class="dropdown-menu" k, style="top: 20px;">
+                <button class="dropdown-item index-delete-button" disabled>Delete Genre</button>
+            </div>
+        </div>
+    </div>
+
+    @(Html.Kendo().Grid<GenreViewModel>()
+                        .Name("grid")
+                        .HtmlAttributes(new { style = "height: 560px" })
+                        .Columns(columns =>
+                        {
+                            columns.Bound(genre => genre.GenreId).Width(130).ClientTemplate(Html.ActionLink("#=GenreId#", "Details", new { genreId = "#=GenreId#" }).ToHtmlString());
+                            columns.Bound(genre => genre.Name);
+                            columns.Select().Width(70);
+                        })
+                        .Sortable(sortable => sortable
+                            .AllowUnsort(true)
+                            .SortMode(GridSortMode.MultipleColumn)
+                            .ShowIndexes(true))
+                        .Scrollable()
+                        .Pageable(pageable => pageable
+                            .Refresh(true)
+                            .PageSizes(true)
+                            .ButtonCount(5))
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(10)
+                            .Model(model => model.Id(p => p.GenreId))
+                            .Read(read => read.Action("GridListGenres", "Genre"))
+                        )
+    )
+    <div class="delete-plugin-container"></div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/genreIndex.js" defer></script>
+    <script src="~/js/DeleteModal.js" defer></script>
+}

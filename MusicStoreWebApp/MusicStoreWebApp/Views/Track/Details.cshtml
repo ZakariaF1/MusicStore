@@ -1,0 +1,75 @@
+﻿@using MusicStoreWebApp.Models.ViewModels
+@model TrackViewModel
+@{
+    ViewBag.Title = "Track Details";
+}
+
+@section StyleSheets
+    {
+    <link href="~/css/details.css" rel="stylesheet" />
+    <link href="~/css/sideBar.css" rel="stylesheet" />
+    <link href="~/css/myModal.css" rel="stylesheet" />
+}
+
+@await Html.PartialAsync("SideBarView")
+
+<div class="rightSide-content">
+    <div class="header-content">
+        <p class="header-paragraph">@Model.Name</p>
+        <button type="button" class="btn btn-danger details-delete-button">Delete Track</button>
+    </div>
+    <div class="tabs-container">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Details</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="form-group">
+                    @Html.LabelFor(p => p.TrackId, "Track Id")
+                    @Html.ActionLink(Model.TrackId.ToString(), "Edit", null, null, new { @class = "linkDisabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.Name)
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.Name) ? "-" : Model.Name, "Edit", new { trackId = Model.TrackId }, new { @class = "linkEnabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.AlbumTitle, "Album")
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.AlbumTitle) ? "-" : Model.AlbumTitle, "Edit", new { trackId = Model.TrackId }, new { @class = "linkEnabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.MediaTypeName, "Media Type")
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.MediaTypeName) ? "-" : Model.MediaTypeName, "Edit", new { trackId = Model.TrackId }, new { @class = "linkEnabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.GenreId, "Genre")
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.GenreName) ? "-" : Model.GenreName, "Edit", new { trackId = Model.TrackId }, new { @class = "linkEnabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.Composer)
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.Composer) ? "-" : Model.Composer, "Edit", new { trackId = Model.TrackId }, new { @class = "linkEnabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.Milliseconds)
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.Milliseconds) ? "-" : Model.Milliseconds, "Edit", new { trackId = Model.TrackId }, new { @class = "linkEnabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.Bytes)
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.Milliseconds) ? "-" : Model.Bytes, "Edit", new { trackId = Model.TrackId }, new { @class = "linkEnabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.UnitPrice, "Unit Price")
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.Milliseconds) ? "-" : Model.UnitPrice, "Edit", new { trackId = Model.TrackId }, new { @class = "linkEnabled" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="delete-plugin-container"></div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/trackDetails.js" defer></script>
+    <script src="~/js/DeleteModal.js" defer></script>
+}

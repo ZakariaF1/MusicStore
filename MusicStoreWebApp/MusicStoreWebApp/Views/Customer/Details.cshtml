@@ -1,0 +1,187 @@
+﻿@using MusicStoreWebApp.Models.ViewModels
+@using MusicStore.Api.Responses
+@using MusicStoreWebApp.ExtensionMethods
+@model CustomerViewModel
+@{
+    ViewBag.Title = "Customer Details";
+}
+
+@section StyleSheets
+    {
+    <link href="~/css/index.css" rel="stylesheet" />
+    <link href="~/css/details.css" rel="stylesheet" />
+    <link href="~/css/sideBar.css" rel="stylesheet" />
+    <link href="~/css/myModal.css" rel="stylesheet" />
+}
+
+@await Html.PartialAsync("SideBarView")
+
+<div class="rightSide-content">
+    <div class="header-content">
+        <p class="header-paragraph">@Model.FullName</p>
+        <button type="button" class="btn btn-danger details-delete-button">Delete Customer</button>
+    </div>
+    <div class="tabs-container">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-details-tab" data-toggle="tab" href="#nav-details" role="tab" aria-controls="nav-details" aria-selected="true">Details</a>
+                <a class="nav-item nav-link" id="nav-invoices-tab" data-toggle="tab" href="#nav-invoices" role="tab" aria-controls="nav-invoices" aria-selected="false">Invoices</a>
+                <a class="nav-item nav-link" id="nav-tracks-tab" data-toggle="tab" href="#nav-tracks" role="tab" aria-controls="nav-tracks" aria-selected="false">Tracks</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-details" role="tabpanel" aria-labelledby="nav-details-tab">
+                <div class="form-group">
+                    @Html.LabelFor(o => o.CustomerId, "Customer Id")
+                    @Html.ActionLink(Model.CustomerId.ToString(), "Edit", null, null, new { @class = "linkDisabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.FirstName, "First Name")
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.FirstName) ? "-" : Model.FirstName, "Edit", new { customerId = Model.CustomerId }, new { @class = "linkEnabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.LastName, "Last Name")
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.LastName) ? "-" : Model.LastName, "Edit", new { customerId = Model.CustomerId }, new { @class = "linkEnabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.Company)
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.Company) ? "-" : Model.Company, "Edit", new { customerId = Model.CustomerId }, new { @class = "linkEnabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.Address)
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.Address) ? "-" : Model.Address, "Edit", new { customerId = Model.CustomerId }, new { @class = "linkEnabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.Country)
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.Country) ? "-" : Model.Country, "Edit", new { customerId = Model.CustomerId }, new { @class = "linkEnabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.City)
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.City) ? "-" : Model.City, "Edit", new { customerId = Model.CustomerId }, new { @class = "linkEnabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.State)
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.State) ? "-" : Model.State, "Edit", new { customerId = Model.CustomerId }, new { @class = "linkEnabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.PostalCode, "Postal Code")
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.PostalCode) ? "-" : Model.PostalCode, "Edit", new { customerId = Model.CustomerId }, new { @class = "linkEnabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.Phone)
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.Phone) ? "-" : Model.Phone, "Edit", new { customerId = Model.CustomerId }, new { @class = "linkEnabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.Fax)
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.Fax) ? "-" : Model.Fax, "Edit", new { customerId = Model.CustomerId }, new { @class = "linkEnabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.Email)
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.Email) ? "-" : Model.Email, "Edit", new { customerId = Model.CustomerId }, new { @class = "linkEnabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.SupportRep, "Support Representant")
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.SupportRep) ? "-" : Model.SupportRep, "Edit", new { customerId = Model.CustomerId }, new { @class = "linkEnabled" })
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-invoices" role="tabpanel" aria-labelledby="nav-invoices-tab">
+                <div class="functionalities-container">
+                    @Html.TextBox("invoice-search-text-box", null, new { @type = "search", @class = "form-control search-text-box", placeholder = "Search", autocomplete = "off" })
+                    <select class="invoice-filter-select" multiple="multiple">
+                        <option value="invoiceId">Invoice Id</option>
+                        <option value="invoiceDate">Invoice Date</option>
+                        <option value="billingAddress">Billing Address</option>
+                        <option value="billingCity">Billing City</option>
+                        <option value="billingCountry">Billing Country</option>
+                        <option value="billingPostalCode">Billing Postal Code</option>
+                        <option value="total">Total</option>
+                    </select>
+                    <div class="btn-group main-select">
+                        @Html.ActionLink("Create Invoice", "Create", "Invoice", new { customerId = Model.CustomerId }, new { @class = "btn btn-danger create-button" })
+                        <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split create-button-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu" k, style="top: 20px;">
+                            <button class="dropdown-item index-delete-button invoices-index-delete-button" disabled>Delete Invoice</button>
+                        </div>
+                    </div>
+                </div>
+                @(Html.Kendo().Grid<InvoiceViewModel>()
+                                            .Name("invoicesGrid")
+                                            .HtmlAttributes(new { style = "height: 409px" })
+                                            .Columns(columns =>
+                                            {
+                                                columns.Bound(c => c.InvoiceId).Width(130).ClientTemplate(Html.ActionLink("#=InvoiceId#", "Edit", "Invoice", new { invoiceId = "#=InvoiceId#", customerId = "#=CustomerId#", fromCustomer = true }).ToHtmlString());
+                                                columns.Bound(invoice => invoice.InvoiceDate).Width(150).ClientTemplate("#= kendo.toString(InvoiceDate, \"dd/MM/yyyy hh:mm tt\") #");
+                                                columns.Bound(invoice => invoice.BillingAddress).Width(170);
+                                                columns.Bound(invoice => invoice.BillingCity).Width(150);
+                                                columns.Bound(invoice => invoice.BillingCountry);
+                                                columns.Bound(invoice => invoice.BillingPostalCode);
+                                                columns.Bound(invoice => invoice.Total).Width(100);
+                                                columns.Select().Width(70);
+                                            })
+                                            .Sortable(sortable => sortable
+                                                .AllowUnsort(true)
+                                                .SortMode(GridSortMode.MultipleColumn)
+                                                .ShowIndexes(true))
+                                            .Scrollable()
+                                            .Pageable(pageable => pageable
+                                                .Refresh(true)
+                                                .PageSizes(true)
+                                                .ButtonCount(5))
+                                            .DataSource(dataSource => dataSource
+                                                .Ajax()
+                                                .PageSize(10)
+                                                .Model(model => model.Id(p => p.InvoiceId))
+                                                .Read(read => read.Action("GridListCustomerInvoices", "Customer", new { customerId = Model.CustomerId }))
+                                            )
+                )
+            </div>
+            <div class="tab-pane fade" id="nav-tracks" role="tabpanel" aria-labelledby="nav-tracks-tab">
+                <div class="functionalities-container">
+                    @Html.TextBox("track-search-text-box", null, new { @type = "search", @class = "form-control search-text-box", placeholder = "Search", autocomplete = "off" })
+                    <select class="track-filter-select" multiple="multiple">
+                        <option value="trackId">Track Id</option>
+                        <option value="name">Name</option>
+                        <option value="album">Album</option>
+                        <option value="composer">Composer</option>
+                        <option value="bytes">Bytes</option>
+                        <option value="unitPrice">Unit Price</option>
+                    </select>
+                </div>
+                @(Html.Kendo().Grid<TrackViewModel>()
+                                            .Name("tracksGrid")
+                                            .HtmlAttributes(new { style = "height: 409px" })
+                                            .Columns(columns =>
+                                            {
+                                                columns.Bound(c => c.TrackId).Width(140).ClientTemplate(Html.ActionLink("#=TrackId#", "Details", "Track", new { TrackId = "#=TrackId#" }).ToHtmlString());
+                                                columns.Bound(track => track.Name);
+                                                columns.Bound(track => track.AlbumTitle);
+                                                columns.Bound(track => track.Composer);
+                                                columns.Bound(track => track.Bytes).Width(120);
+                                                columns.Bound(track => track.UnitPrice).Width(140);
+                                            })
+                                            .Sortable(sortable => sortable
+                                                .AllowUnsort(true)
+                                                .SortMode(GridSortMode.MultipleColumn)
+                                                .ShowIndexes(true))
+                                            .Scrollable()
+                                            .Pageable(pageable => pageable
+                                                .Refresh(true)
+                                                .PageSizes(true)
+                                                .ButtonCount(5))
+                                            .DataSource(dataSource => dataSource
+                                                .Ajax()
+                                                .PageSize(10)
+                                                .Model(model => model.Id(p => p.TrackId))
+                                                .Read(read => read.Action("GridListCustomerTracks", "Customer", new { customerId = Model.CustomerId }))
+                                            )
+                )
+            </div>
+        </div>
+        <div class="delete-plugin-container"></div>
+    </div>
+</div>
+@section Scripts
+    {
+    <script src="~/js/customerDetails.js" defer></script>
+    <script src="~/js/DeleteModal.js" defer></script>
+}

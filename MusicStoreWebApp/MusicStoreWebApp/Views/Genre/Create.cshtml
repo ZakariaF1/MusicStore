@@ -1,0 +1,33 @@
+﻿@using MusicStore.Api.Requests.CreateRequests
+@model GenreCreateRequest
+@{
+    ViewBag.Title = "Create Genre";
+}
+
+@section StyleSheets
+    {
+    <link href="~/css/form.css" rel="stylesheet" />
+}
+
+<div class="form-container">
+    <div class="form-header">
+        <p class="header-paragraph">Create Genre</p>
+    </div>
+    <form id="main-form" class="form-content" method="post" autocomplete="off">
+        <div class="form-group">
+            <label for="Name">Name<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(p => p.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.Name)
+        </div>
+    </form>
+    <hr class="break-line" />
+    <div class="form-footer">
+        <a class="btn btn-danger form-button form-cancelButton" asp-action="Index" role="button">Cancel</a>
+        <button type="submit" class="btn btn-danger form-button form-submitButton" form="main-form">Create</button>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/genreForm.js"></script>
+}

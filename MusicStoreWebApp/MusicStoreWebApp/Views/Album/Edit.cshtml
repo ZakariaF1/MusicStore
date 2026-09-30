@@ -1,0 +1,42 @@
+﻿@using MusicStore.Api.Responses
+@model AlbumFrontendUpdateResponse
+@{
+    ViewBag.Title = "Update Album";
+}
+
+@section StyleSheets
+    {
+    <link href="~/css/form.css" rel="stylesheet" />
+}
+
+<div class="form-container">
+    <div class="form-header">
+        <p class="header-paragraph">Edit Album @Model.AlbumResponse.Title</p>
+    </div>
+    <form id="main-form" class="form-content" method="post" autocomplete="off">
+        <div class="form-group">
+            @Html.LabelFor(p => p.AlbumResponse.AlbumId, "Album Id")
+            @Html.TextBoxFor(p => p.AlbumResponse.AlbumId, new { @class = "form-control", disabled = "disabled" })
+        </div>
+        <div class="form-group">
+            <label for="Title">Title<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(p => p.AlbumUpdateRequest.Title, new { @class = "form-control" })
+            @Html.ValidationMessageFor(p => p.AlbumUpdateRequest.Title)
+        </div>
+        <div class="form-group">
+            <label for="ArtistId">Artist<sup class="required-superscript">*</sup></label>
+            @Html.TextBoxFor(p => p.AlbumUpdateRequest.ArtistId, new { @id = "artistId-input", @style = "width: 100%" })
+            <span class="field-validation-error artistId-validation-error"></span>
+        </div>
+    </form>
+    <hr class="break-line" />
+    <div class="form-footer">
+        @Html.ActionLink("Cancel", "Details", null, new { albumId = Model.AlbumResponse.AlbumId }, new { @class = "btn btn-danger form-button form-cancelButton" })
+        <button type="submit" class="btn btn-danger form-button form-submitButton" form="main-form">Save</button>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/albumForm.js"></script>
+}

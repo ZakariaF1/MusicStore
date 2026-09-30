@@ -1,0 +1,88 @@
+﻿.form-group > label {
+    display: block;
+    margin-bottom: 0;
+}
+
+.rightSide-content {
+    float: right;
+    width: 82%;
+    padding: 0;
+}
+
+.header-content {
+    min-height: 108px;
+    padding: 35px;
+    background-color: #eeeeee;
+}
+
+.header-content > .header-paragraph {
+    color: black;
+    font-size: xx-large;
+    float: left;
+    margin-bottom: 0;
+}
+
+.details-delete-button {
+    float: right;
+    background-color: rgba(190, 16, 16, 0.7);
+    border-color: rgba(190, 16, 16, 0.7);
+    border-radius: 0;
+}
+
+.details-delete-button:hover {
+    background-color: rgba(190, 16, 16, 1);
+    border-color: rgba(190, 16, 16, 0.7);
+}
+
+.nav-tabs {
+    padding-left: 35px;
+    background-color: #eeeeee;
+}
+
+.nav-tabs a {
+    padding: 7px 28px;
+    color: black;
+}
+
+.nav-item {
+    border-radius: 0px;
+}
+
+.nav-tabs .nav-link.active {
+    border-top: 3px solid #ca0a0a;
+}
+
+.tab-content {
+    padding: 35px;
+}
+
+.linkDisabled {
+    color: gray;
+    pointer-events: none;
+    cursor: default;
+}
+
+.linkEnabled {
+    color: #BE1010;
+    text-decoration: none !important;
+}
+
+.linkEnabled:hover {
+    color: #BE1010;
+}
+
+
+
+
+
+
+
+
+table tbody tr td:nth-child(1) a {
+    text-decoration: none !important;
+    color: #BE1010;
+}
+
+.k-grid-header tr th {
+    padding: 7px 15px 7px 15px !important;
+}

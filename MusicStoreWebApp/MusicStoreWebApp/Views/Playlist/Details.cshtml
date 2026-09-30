@@ -1,0 +1,123 @@
+﻿@using MusicStore.Api.Responses
+@using MusicStoreWebApp.Models.ViewModels
+@using MusicStoreWebApp.ExtensionMethods
+@model PlaylistViewModel
+@{
+    ViewBag.Title = "Playlist Details";
+}
+
+@section StyleSheets
+    {
+    <link href="~/css/index.css" rel="stylesheet" />
+    <link href="~/css/details.css" rel="stylesheet" />
+    <link href="~/css/sideBar.css" rel="stylesheet" />
+    <link href="~/css/myModal.css" rel="stylesheet" />
+    <link href="~/css/trackModal.css" rel="stylesheet" />
+}
+
+@await Html.PartialAsync("SideBarView")
+
+<div class="rightSide-content">
+    <div class="header-content">
+        <p class="header-paragraph">@Model.Name</p>
+        <button type="button" class="btn btn-danger details-delete-button">Delete Playlist</button>
+    </div>
+    <div class="tabs-container">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-details-tab" data-toggle="tab" href="#nav-details" role="tab" aria-controls="nav-details" aria-selected="true">Details</a>
+                <a class="nav-item nav-link" id="nav-tracks-tab" data-toggle="tab" href="#nav-tracks" role="tab" aria-controls="nav-tracks" aria-selected="false">Tracks</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-details" role="tabpanel" aria-labelledby="nav-details-tab">
+                <div class="form-group">
+                    @Html.LabelFor(p => p.PlaylistId, "Playlist Id")
+                    @Html.ActionLink(Model.PlaylistId.ToString(), "Edit", null, null, new { @class = "linkDisabled" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(p => p.Name)
+                    @Html.ActionLink(String.IsNullOrEmpty(Model.Name) ? "-" : Model.Name, "Edit", new { playlistId = Model.PlaylistId }, new { @class = "linkEnabled" })
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-tracks" role="tabpanel" aria-labelledby="nav-tracks-tab">
+                <div class="functionalities-container">
+                    @Html.TextBox("search-text-box", null, new { @type = "search", @class = "form-control search-text-box", placeholder = "Search", autocomplete = "off" })
+                    <select class="filter-select" multiple="multiple">
+                        <option value="trackId">Track Id</option>
+                        <option value="trackName">Track Name</option>
+                    </select>
+                    <div class="btn-group main-select">
+                        <button class="btn btn-danger create-button">Link Track</button>
+                        <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split create-button-group" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu" k, style="top: 20px;">
+                            <button class="dropdown-item index-delete-button index-delete-button" disabled>Unlink Track</button>
+                        </div>
+                    </div>
+                </div>
+                @(Html.Kendo().Grid<PlaylistTrackViewModel>()
+                                            .Name("grid")
+                                            .HtmlAttributes(new { style = "height: 409px" })
+                                            .Columns(columns =>
+                                            {
+                                                columns.Bound(track => track.TrackId).Width(130).ClientTemplate(Html.ActionLink("#=TrackId#", "Details", "Track", new { trackId = "#=TrackId#" }).ToHtmlString());
+                                                columns.Bound(track => track.TrackName);
+
+                                                columns.Select().Width(70);
+                                            })
+                                            .Sortable(sortable => sortable
+                                                .AllowUnsort(true)
+                                                .SortMode(GridSortMode.MultipleColumn)
+                                                .ShowIndexes(true))
+                                            .Scrollable()
+                                            .Pageable(pageable => pageable
+                                                .Refresh(true)
+                                                .PageSizes(true)
+                                                .ButtonCount(5))
+                                            .DataSource(dataSource => dataSource
+                                                .Ajax()
+                                                .PageSize(10)
+                                                .Model(model => model.Id(p => p.TrackId))
+                                                .Read(read => read.Action("GridListPlaylistTracks", "Playlist", new { playlistId = Model.PlaylistId }))
+                                            )
+                )
+            </div>
+        </div>
+    </div>
+
+    <div class="delete-plugin-container"></div>
+</div>
+<div class="myModal-wrapper track-modal-wrapper">
+    <div class="myModal track-modal">
+        <div class="myModal-header trackModal-header">
+            <div class="myModal-header-paragraph trackModal-header-paragraph">Link Track to @Model.Name Playlist</div>
+        </div>
+        <div class="content-footer-container">
+            <div class="myModal-content trackModal-content">
+                <div class="myModal-content-paragraph trackModal-content-paragraph">
+                    <div class="form-group first-form-group">
+                        <label>Select Your Track<sup class="required-superscript">*</sup></label>
+                        @Html.TextBox("track-input", null, new { @style = "width: 100%" })
+                    </div>
+                </div>
+            </div>
+            <hr class="break-line">
+            <div class="myModal-footer linkModal-footer">
+                <button class="btn btn-danger myModal-button myModal-secondaryButton trackModal-secondaryButton">Cancel</button>
+                <button class="btn btn-danger myModal-button myModal-mainButton trackModal-mainButton" disabled>Link</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="template" type="text/x-kendo-template">
+    <span class="#: isNotAvailable ? 'k-state-disabled': ''#">
+        #: text #
+    </span>
+</script>
+
+@section Scripts
+    {
+    <script src="~/js/playlistDetails.js" defer></script>
+    <script src="~/js/DeleteModal.js" defer></script>
+}
