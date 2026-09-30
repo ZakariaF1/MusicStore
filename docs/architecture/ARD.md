@@ -62,7 +62,7 @@ No production deployment topology exists yet.
 | .NET 10 / ASP.NET Core | Host |
 | EF Core 9 + Pomelo.EntityFrameworkCore.MySql 9.0 | Persistence (Pomelo 10 not GA yet; Pomelo 9 runs on net10) |
 | Microsoft.AspNetCore.Mvc.NewtonsoftJson | PascalCase JSON |
-| Telerik.UI.for.AspNet.Core 2026.3.x | Kendo MVC helpers in WebApp |
+| Telerik.UI.for.AspNet.Core 2026.3.x | Kendo MVC helpers in WebApp; matching client JS/CSS under `wwwroot/lib/kendo-ui` |
 | MySQL Server 8 | Database |
 | Docker (optional) | Local MySQL |
 

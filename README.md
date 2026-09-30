@@ -43,7 +43,7 @@ In Visual Studio, run **MusicStore** (IIS Express → `https://localhost:44333`)
 
 ### Setup notes (details)
 
-- Telerik: NuGet package `Telerik.UI.for.AspNet.Core` (see `MusicStoreWebApp/NuGet.Config`). Feed: `https://nuget.telerik.com/v3/index.json` (username `api-key`). Client scripts/CSS use the matching Kendo CDN version in `_Layout.cshtml`.
+- Telerik: NuGet package `Telerik.UI.for.AspNet.Core` (see `MusicStoreWebApp/NuGet.Config`). Feed: `https://nuget.telerik.com/v3/index.json` (username `api-key`). Client scripts/CSS are served locally from `MusicStoreWebApp/MusicStoreWebApp/wwwroot/lib/kendo-ui/` (must match the NuGet version; see that folder’s README when upgrading).
 - Connection string: `MusicStore/MusicStore/appsettings.json` → `ChinookDatabaseConnection`.
 - Architecture: [`docs/architecture/ARD.md`](docs/architecture/ARD.md). Agent standards: [`AGENTS.md`](AGENTS.md), [`docs/engineering-charter.md`](docs/engineering-charter.md).
 - Changes ship via **pull request only** (no direct pushes to `master`).
