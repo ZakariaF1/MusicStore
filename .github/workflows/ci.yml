@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  build-test:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: MusicStore
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+
+      - name: Restore
+        run: dotnet restore MusicStore.sln
+
+      - name: Build
+        run: dotnet build MusicStore.sln --no-restore --configuration Release
+
+      - name: Test
+        run: dotnet test MusicStore.sln --no-build --configuration Release --verbosity normal

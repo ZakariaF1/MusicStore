@@ -35,5 +35,6 @@ Desktop.ini
 .env.*
 **/appsettings.*.local.json
 **/secrets.json
-NuGet.Config
+# Ignore credentialed NuGet configs; allow the API solution’s nuget.org-only config
 **/NuGet.Config
+!MusicStore/NuGet.Config
