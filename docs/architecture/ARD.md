@@ -40,9 +40,9 @@ Keep the existing two-process local architecture (API + Web UI) on ASP.NET Core 
 
 ![C4 Containers](diagrams/c4-containers.svg)
 
-![Deployment — local](diagrams/deployment-local.svg)
+![Deployment - local](diagrams/deployment-local.svg)
 
-![Sequence — list employees](diagrams/sequence-list-employees.svg)
+![Sequence - list employees](diagrams/sequence-list-employees.svg)
 
 ## Deployment
 
