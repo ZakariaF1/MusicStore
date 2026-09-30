@@ -15,7 +15,7 @@ View diagrams with VS Code / Visual Studio Markdown preview (**Ctrl+Shift+V**). 
 - Cloud / production hosting choice and IaC
 - Authentication / authorization product features
 - Multipayer commerce / payment gateway
-- Full DDD re-layering (tracked as incremental refactor under the engineering charter)
+- Full DDD re-layering beyond current Domain purification (tracked as incremental refactor under the engineering charter)
 
 ## Proposed Approach
 
@@ -26,7 +26,7 @@ Keep the existing two-process local architecture (API + Web UI) on **.NET 10** w
 | Component | Role |
 | --------- | ---- |
 | `MusicStore` (host) | ASP.NET Core API presentation + DI composition root + application services (`net10.0`) |
-| `MusicStore.Domain` | Entity types for Chinook aggregates (`net10.0`; still EF-annotated — debt) |
+| `MusicStore.Domain` | Entity types for Chinook aggregates (`net10.0`; validation DataAnnotations remain; EF Schema attributes removed — mapping lives in MySQL `UnitOfWork`) |
 | `MusicStore.Repository` | Repository port interfaces |
 | `MusicStore.Repository.MySql` (`ClassLibrary1`) | EF `UnitOfWork` + MySQL repository adapters (Pomelo 9) |
 | `MusicStore.Repository.MsSql` | Alternate SQL Server adapters (not primary path) |

@@ -1,13 +1,10 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MusicStore.Domain
 {
     public class Track
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TrackId { get; set; }
         [MaxLength(200)]
         public string Name { get; set; }
