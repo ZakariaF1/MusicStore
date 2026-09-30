@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MusicStore.Domain\MusicStore.Domain.csproj" />
+    <ProjectReference Include="..\ClassLibrary1\MusicStore.Repository.MySql.csproj" />
   </ItemGroup>
 
 </Project>

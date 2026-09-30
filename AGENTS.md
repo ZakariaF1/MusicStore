@@ -17,7 +17,7 @@ Follow [`docs/engineering-charter.md`](docs/engineering-charter.md) for architec
 
 | Charter layer | Where it lives today |
 | ------------- | -------------------- |
-| Domain | `MusicStore/MusicStore.Domain` (EF attributes still leak — migrate carefully) |
+| Domain | `MusicStore/MusicStore.Domain` (validation DataAnnotations; EF Schema attrs removed — mapping in MySQL `UnitOfWork`) |
 | Application / use cases | `MusicStore/MusicStore/Services` (same host as presentation — debt) |
 | Infrastructure | `MusicStore/ClassLibrary1` (MySQL), optional MsSql project |
 | Presentation | `MusicStore/MusicStore` (API, net10), `MusicStoreWebApp/` (UI, net10) |

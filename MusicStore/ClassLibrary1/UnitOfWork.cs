@@ -32,7 +32,9 @@ namespace MusicStore.Repository.MySql
                 entity.HasIndex(e => e.ArtistId)
                     .HasDatabaseName("IFK_AlbumArtistId");
 
-                entity.Property(e => e.AlbumId).HasColumnType("int(11)");
+                entity.Property(e => e.AlbumId)
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.ArtistId).HasColumnType("int(11)");
 
@@ -47,7 +49,9 @@ namespace MusicStore.Repository.MySql
 
                 entity.ToTable("artists");
 
-                entity.Property(e => e.ArtistId).HasColumnType("int(11)");
+                entity.Property(e => e.ArtistId)
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Name).HasColumnType("varchar(120)");
             });
@@ -61,7 +65,9 @@ namespace MusicStore.Repository.MySql
                 entity.HasIndex(e => e.SupportRepId)
                     .HasDatabaseName("IFK_CustomerSupportRepId");
 
-                entity.Property(e => e.CustomerId).HasColumnType("int(11)");
+                entity.Property(e => e.CustomerId)
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Address).HasColumnType("varchar(70)");
 
@@ -103,7 +109,9 @@ namespace MusicStore.Repository.MySql
                 entity.HasIndex(e => e.ReportsTo)
                     .HasDatabaseName("IFK_EmployeeReportsTo");
 
-                entity.Property(e => e.EmployeeId).HasColumnType("int(11)");
+                entity.Property(e => e.EmployeeId)
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Address).HasColumnType("varchar(70)");
 
@@ -144,7 +152,9 @@ namespace MusicStore.Repository.MySql
 
                 entity.ToTable("genres");
 
-                entity.Property(e => e.GenreId).HasColumnType("int(11)");
+                entity.Property(e => e.GenreId)
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Name).HasColumnType("varchar(120)");
             });
@@ -161,7 +171,9 @@ namespace MusicStore.Repository.MySql
                 entity.HasIndex(e => e.TrackId)
                     .HasDatabaseName("IFK_InvoiceLineTrackId");
 
-                entity.Property(e => e.InvoiceLineId).HasColumnType("int(11)");
+                entity.Property(e => e.InvoiceLineId)
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.InvoiceId).HasColumnType("int(11)");
 
@@ -181,7 +193,9 @@ namespace MusicStore.Repository.MySql
                 entity.HasIndex(e => e.CustomerId)
                     .HasDatabaseName("IFK_InvoiceCustomerId");
 
-                entity.Property(e => e.InvoiceId).HasColumnType("int(11)");
+                entity.Property(e => e.InvoiceId)
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.BillingAddress).HasColumnType("varchar(70)");
 
@@ -206,7 +220,9 @@ namespace MusicStore.Repository.MySql
 
                 entity.ToTable("media_types");
 
-                entity.Property(e => e.MediaTypeId).HasColumnType("int(11)");
+                entity.Property(e => e.MediaTypeId)
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Name).HasColumnType("varchar(120)");
             });
@@ -217,7 +233,9 @@ namespace MusicStore.Repository.MySql
 
                 entity.ToTable("playlists");
 
-                entity.Property(e => e.PlaylistId).HasColumnType("int(11)");
+                entity.Property(e => e.PlaylistId)
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Name).HasColumnType("varchar(120)");
             });
@@ -251,7 +269,9 @@ namespace MusicStore.Repository.MySql
                 entity.HasIndex(e => e.MediaTypeId)
                     .HasDatabaseName("IFK_TrackMediaTypeId");
 
-                entity.Property(e => e.TrackId).HasColumnType("int(11)");
+                entity.Property(e => e.TrackId)
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AlbumId).HasColumnType("int(11)");
 
