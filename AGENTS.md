@@ -25,7 +25,9 @@ Follow [`docs/engineering-charter.md`](docs/engineering-charter.md) for architec
 
 ## Do / don't
 
-- **Do** keep CI green; add a failing characterization test before behavior changes.
+- **Do** ship changes via **pull request only** — never push commits directly to `master`/`main`.
+- **Do** keep CI green on PRs; add a failing characterization test before behavior changes.
 - **Do** update README commands and ARD (incl. Security Concerns + diagram images) when entry points, deployment, or trust boundaries change.
 - **Don't** commit Telerik NuGet credentials or secrets.
 - **Don't** put business rules in controllers or Razor views.
+- **Don't** push or merge to trunk without a PR (CI runs on PRs only).
