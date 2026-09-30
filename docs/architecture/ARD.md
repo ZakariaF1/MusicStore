@@ -120,7 +120,7 @@ See sequence diagram above for the employee list flow. Runnable commands: [READM
 
 ### Fitness checks
 
-- GitHub Actions CI: restore + build `MusicStore.sln` + `dotnet test` on every push/PR.
+- GitHub Actions CI: restore + build `MusicStore.sln` + `dotnet test` on every pull request targeting `master`/`main`.
 - Web UI restore/build is **not** in CI yet (private Telerik feed); tracked as follow-up once a secret feed is available.
 
 ## COGS
